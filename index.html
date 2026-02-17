@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Bouquet for You 🌸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blush: #FDF2F0;
+            --coral: #E88B84;
+            --peach: #F5A962;
+            --sage: #7CB082;
+            --cream: #FFF8E7;
+            --brown: #8B6E5A;
+            --deep-rose: #D4726A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: var(--blush);
+            min-height: 100vh;
+            overflow: hidden;
+            cursor: default;
+        }
+
+        /* Floating petals background */
+        .petal {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            background: var(--coral);
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.3;
+            animation: float 15s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .petal:nth-child(2) { left: 10%; animation-delay: -2s; background: var(--peach); width: 12px; height: 12px; }
+        .petal:nth-child(3) { left: 20%; animation-delay: -4s; background: var(--deep-rose); width: 18px; height: 18px; }
+        .petal:nth-child(4) { left: 30%; animation-delay: -6s; background: var(--coral); width: 10px; height: 10px; }
+        .petal:nth-child(5) { left: 40%; animation-delay: -8s; background: var(--sage); width: 14px; height: 14px; }
+        .petal:nth-child(6) { left: 50%; animation-delay: -10s; background: var(--peach); width: 16px; height: 16px; }
+        .petal:nth-child(7) { left: 60%; animation-delay: -12s; background: var(--deep-rose); width: 11px; height: 11px; }
+        .petal:nth-child(8) { left: 70%; animation-delay: -14s; background: var(--coral); width: 13px; height: 13px; }
+        .petal:nth-child(9) { left: 80%; animation-delay: -3s; background: var(--sage); width: 17px; height: 17px; }
+        .petal:nth-child(10) { left: 90%; animation-delay: -7s; background: var(--peach); width: 9px; height: 9px; }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.4;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Landing Page */
+        .landing {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            background: linear-gradient(135deg, var(--blush) 0%, var(--cream) 50%, var(--blush) 100%);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .landing.hidden {
+            opacity: 0;
+            transform: scale(1.1);
+            pointer-events: none;
+        }
+
+        .landing h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            color: var(--deep-rose);
+            text-align: center;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease forwards;
+            opacity: 0;
+            text-shadow: 2px 2px 4px rgba(212, 114, 106, 0.2);
+        }
+
+        .landing p {
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            color: var(--brown);
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.3s forwards;
+            opacity: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-button {
+            padding: 1.2rem 3rem;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: white;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--deep-rose) 100%);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            animation: fadeInUp 1s ease 0.6s forwards, pulse 2s ease-in-out 1.6s infinite;
+            opacity: 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 30px rgba(212, 114, 106, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(212, 114, 106, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 10px 30px rgba(212, 114, 106, 0.3);
+            }
+            50% {
+                box-shadow: 0 10px 40px rgba(212, 114, 106, 0.5);
+            }
+        }
+
+        /* Flower Page */
+        .flower-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease 0.3s;
+        }
+
+        .flower-page.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .flower-container {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            animation: floatFlower 4s ease-in-out infinite;
+        }
+
+        .flower-container:hover {
+            transform: scale(1.05);
+        }
+
+        .flower-container.pressing {
+            animation: shake 0.1s ease-in-out infinite;
+        }
+
+        @keyframes floatFlower {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(-1deg); }
+            50% { transform: rotate(1deg); }
+        }
+
+        .flower-image {
+            width: clamp(280px, 50vw, 420px);
+            height: auto;
+            filter: drop-shadow(0 20px 40px rgba(139, 110, 90, 0.2));
+            transition: filter 0.3s ease;
+        }
+
+        .flower-container:hover .flower-image {
+            filter: drop-shadow(0 25px 50px rgba(139, 110, 90, 0.3));
+        }
+
+        .flower-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--deep-rose);
+            margin-bottom: 2rem;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.5s forwards;
+        }
+
+        .hint {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            color: var(--brown);
+            opacity: 0.6;
+            white-space: nowrap;
+            animation: fadeInUp 0.8s ease 1s forwards;
+        }
+
+        /* Progress Ring */
+        .progress-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .progress-ring.active {
+            opacity: 1;
+        }
+
+        .progress-ring svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .progress-ring circle {
+            fill: none;
+            stroke: var(--coral);
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-dasharray: 1200;
+            stroke-dashoffset: 1200;
+            transition: stroke-dashoffset 0.1s linear;
+        }
+
+        /* Secret Message */
+        .secret-message {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(135deg, #FFE5E0 0%, #FFF0EB 50%, #FFE8E3 100%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .secret-message.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .secret-content {
+            text-align: center;
+            max-width: 600px;
+            padding: 2rem;
+        }
+
+        .secret-emoji {
+            font-size: 5rem;
+            animation: bounce 1s ease infinite;
+            margin-bottom: 1.5rem;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .secret-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            color: var(--deep-rose);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .secret-text {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            color: var(--brown);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.6s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .sparkles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 101;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--peach);
+            border-radius: 50%;
+            animation: sparkle 1.5s ease-out forwards;
+        }
+
+        @keyframes sparkle {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        .close-btn {
+            padding: 0.8rem 2rem;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            color: var(--deep-rose);
+            background: transparent;
+            border: 2px solid var(--coral);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        .close-btn:hover {
+            background: var(--coral);
+            color: white;
+        }
+
+        /* Hearts decoration */
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: floatHeart 6s ease-in-out infinite;
+            opacity: 0.4;
+        }
+
+        @keyframes floatHeart {
+            0%, 100% {
+                transform: translateY(0) rotate(-5deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Petals -->
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+
+    <!-- Landing Page -->
+    <div class="landing" id="landing">
+        <h1>✿ Something Special Awaits ✿</h1>
+        <p>A little surprise, just for you...</p>
+        <button class="cta-button" onclick="showFlower()">Reveal My Surprise</button>
+    </div>
+
+    <!-- Flower Page -->
+    <div class="flower-page" id="flowerPage">
+        <h2 class="flower-title">A Beautiful Bouquet for You 💐</h2>
+        <div class="flower-container" id="flowerContainer">
+            <img src="pic.webp" alt="Beautiful Spring Flower Bouquet" class="flower-image" id="flowerImage">
+            <div class="progress-ring" id="progressRing">
+                <svg viewBox="0 0 500 600">
+                    <circle cx="250" cy="280" r="190" id="progressCircle"></circle>
+                </svg>
+            </div>
+            <p class="hint">✨ Psst... try holding the flowers for 3 seconds ✨</p>
+        </div>
+    </div>
+
+    <!-- Secret Message -->
+    <div class="secret-message" id="secretMessage">
+        <div class="hearts" id="hearts"></div>
+        <div class="secret-content">
+            <div class="secret-emoji">🌸💝🌸</div>
+            <h2 class="secret-title">You Found the Secret!</h2>
+            <p class="secret-text">
+                Just like these flowers, you bring beauty and joy to everyone around you. 
+                Remember: You are loved, you are valued, and you make the world a brighter place! 
+                Keep blooming! 🌷
+            </p>
+            <button class="close-btn" onclick="closeSecret()">Back to Bouquet</button>
+        </div>
+        <div class="sparkles" id="sparkles"></div>
+    </div>
+
+    <script>
+        // Show flower page
+        function showFlower() {
+            document.getElementById('landing').classList.add('hidden');
+            document.getElementById('flowerPage').classList.add('visible');
+        }
+
+        // Easter egg functionality
+        const flowerContainer = document.getElementById('flowerContainer');
+        const progressRing = document.getElementById('progressRing');
+        const progressCircle = document.getElementById('progressCircle');
+        const secretMessage = document.getElementById('secretMessage');
+        
+        let holdTimer = null;
+        let holdStartTime = null;
+        const holdDuration = 3000; // 3 seconds
+        const circumference = 2 * Math.PI * 190;
+        
+        progressCircle.style.strokeDasharray = circumference;
+        progressCircle.style.strokeDashoffset = circumference;
+
+        function startHold(e) {
+            e.preventDefault();
+            holdStartTime = Date.now();
+            flowerContainer.classList.add('pressing');
+            progressRing.classList.add('active');
+            
+            function updateProgress() {
+                if (!holdStartTime) return;
+                
+                const elapsed = Date.now() - holdStartTime;
+                const progress = Math.min(elapsed / holdDuration, 1);
+                const offset = circumference - (progress * circumference);
+                progressCircle.style.strokeDashoffset = offset;
+                
+                if (progress < 1) {
+                    holdTimer = requestAnimationFrame(updateProgress);
+                } else {
+                    showSecret();
+                }
+            }
+            
+            holdTimer = requestAnimationFrame(updateProgress);
+        }
+
+        function endHold() {
+            flowerContainer.classList.remove('pressing');
+            progressRing.classList.remove('active');
+            holdStartTime = null;
+            
+            if (holdTimer) {
+                cancelAnimationFrame(holdTimer);
+                holdTimer = null;
+            }
+            
+            // Reset progress
+            progressCircle.style.strokeDashoffset = circumference;
+        }
+
+        function showSecret() {
+            endHold();
+            secretMessage.classList.add('visible');
+            createSparkles();
+            createHearts();
+        }
+
+        function closeSecret() {
+            secretMessage.classList.remove('visible');
+        }
+
+        function createSparkles() {
+            const sparklesContainer = document.getElementById('sparkles');
+            sparklesContainer.innerHTML = '';
+            
+            for (let i = 0; i < 30; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 0.5 + 's';
+                sparkle.style.background = ['#E88B84', '#F5A962', '#7CB082', '#D4726A'][Math.floor(Math.random() * 4)];
+                sparkle.style.width = (Math.random() * 10 + 5) + 'px';
+                sparkle.style.height = sparkle.style.width;
+                sparklesContainer.appendChild(sparkle);
+            }
+        }
+
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            heartsContainer.innerHTML = '';
+            
+            const heartEmojis = ['💕', '💗', '💖', '🌸', '🌷', '🌺'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heart.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // Event listeners for both mouse and touch
+        flowerContainer.addEventListener('mousedown', startHold);
+        flowerContainer.addEventListener('mouseup', endHold);
+        flowerContainer.addEventListener('mouseleave', endHold);
+        flowerContainer.addEventListener('touchstart', startHold);
+        flowerContainer.addEventListener('touchend', endHold);
+        flowerContainer.addEventListener('touchcancel', endHold);
+
+        // Prevent context menu on long press (mobile)
+        flowerContainer.addEventListener('contextmenu', (e) => e.preventDefault());
+    </script>
+</body>
+</html>
